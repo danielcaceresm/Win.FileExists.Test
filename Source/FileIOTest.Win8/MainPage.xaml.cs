@@ -29,12 +29,16 @@ namespace FileIOTest.Win8
                 IFileTester[] testers =
                 {
 #if WINDOWS_APP
-                    new StorageFolderTryGetItemTester(),
+                    //new StorageFolderTryGetItemAsyncTester(),
+                    new StorageFolderTryGetItemSyncTester(),
 #endif
-                    new StorageFolderGetFileAsyncTester(),
+                    /*new StorageFolderGetFileAsyncTester(),
                     new StorageFileGetFileFromPathAsyncTester(),
                     new StorageFileGetFileFromApplicationUriAsyncTester(),
-                    new StorageFolderGetFilesAsyncTester(),
+                    new StorageFolderGetFilesAsyncTester(),*/
+                    new StorageFolderGetFileSyncTester(),
+                    new StorageFileGetFileFromPathSyncTester(),
+                    new StorageFileGetFileFromApplicationUriSyncTester(),
                 };
 
                 await runner.InitFiles(500, 0);

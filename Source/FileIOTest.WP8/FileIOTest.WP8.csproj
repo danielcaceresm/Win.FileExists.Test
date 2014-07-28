@@ -93,6 +93,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TaskExtensions.cs" />
     <Compile Include="Test\FileExistsTester.cs" />
     <Compile Include="Test\IFileTester.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -101,8 +102,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\IsolatedStorageFileFileExistsTester.cs" />
     <Compile Include="Test\ManualHashsetTester.cs" />
+    <Compile Include="Test\StorageFileGetFileFromApplicationUriSyncTester.cs" />
     <Compile Include="Test\StorageFileGetFileFromApplicationUriAsyncTester.cs" />
+    <Compile Include="Test\StorageFileGetFileFromPathSyncTester.cs" />
     <Compile Include="Test\StorageFileGetFileFromPathAsyncTester.cs" />
+    <Compile Include="Test\StorageFolderGetFileSyncTester.cs" />
     <Compile Include="Test\StorageFolderGetFileAsyncTester.cs" />
     <Compile Include="Test\StorageFolderGetFilesAsyncTester.cs" />
     <Compile Include="Test\TestRunner.cs" />

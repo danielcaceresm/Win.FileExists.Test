@@ -110,6 +110,9 @@
       <Link>MainPage.xaml.cs</Link>
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="..\FileIOTest.WP8\TaskExtensions.cs">
+      <Link>TaskExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\FileIOTest.WP8\Test\IFileTester.cs">
       <Link>Test\IFileTester.cs</Link>
     </Compile>
@@ -119,8 +122,14 @@
     <Compile Include="..\FileIOTest.WP8\Test\StorageFileGetFileFromApplicationUriAsyncTester.cs">
       <Link>Test\StorageFileGetFileFromApplicationUriAsyncTester.cs</Link>
     </Compile>
+    <Compile Include="..\FileIOTest.WP8\Test\StorageFileGetFileFromApplicationUriSyncTester.cs">
+      <Link>Test\StorageFileGetFileFromApplicationUriSyncTester.cs</Link>
+    </Compile>
     <Compile Include="..\FileIOTest.WP8\Test\StorageFileGetFileFromPathAsyncTester.cs">
       <Link>Test\StorageFileGetFileFromPathAsyncTester.cs</Link>
+    </Compile>
+    <Compile Include="..\FileIOTest.WP8\Test\StorageFileGetFileFromPathSyncTester.cs">
+      <Link>Test\StorageFileGetFileFromPathSyncTester.cs</Link>
     </Compile>
     <Compile Include="..\FileIOTest.WP8\Test\StorageFolderGetFileAsyncTester.cs">
       <Link>Test\StorageFolderGetFileAsyncTester.cs</Link>
@@ -128,11 +137,15 @@
     <Compile Include="..\FileIOTest.WP8\Test\StorageFolderGetFilesAsyncTester.cs">
       <Link>Test\StorageFolderGetFilesAsyncTester.cs</Link>
     </Compile>
+    <Compile Include="..\FileIOTest.WP8\Test\StorageFolderGetFileSyncTester.cs">
+      <Link>Test\StorageFolderGetFileSyncTester.cs</Link>
+    </Compile>
     <Compile Include="..\FileIOTest.WP8\Test\TestRunner.cs">
       <Link>Test\TestRunner.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\StorageFolderTryGetItemTester.cs" />
+    <Compile Include="Test\StorageFolderTryGetItemSyncTester.cs" />
+    <Compile Include="Test\StorageFolderTryGetItemAsyncTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

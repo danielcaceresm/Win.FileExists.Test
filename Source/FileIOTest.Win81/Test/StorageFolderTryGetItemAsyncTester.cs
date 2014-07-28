@@ -4,7 +4,7 @@ using Windows.Storage;
 
 namespace FileIOTest.Test
 {
-    public class StorageFolderTryGetItemTester : IFileTester
+    public class StorageFolderTryGetItemAsyncTester : IFileTester
     {
         private readonly StorageFolder root = ApplicationData.Current.LocalFolder;
 

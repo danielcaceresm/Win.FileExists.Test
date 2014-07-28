@@ -24,12 +24,15 @@ namespace FileIOTest
 
                 IFileTester[] testers =
                 {
-                    new FileExistsTester(),
+                    /*new FileExistsTester(),
                     new IsolatedStorageFileFileExistsTester(),
                     new StorageFolderGetFileAsyncTester(),
                     new StorageFileGetFileFromPathAsyncTester(),
                     new StorageFileGetFileFromApplicationUriAsyncTester(),
-                    new StorageFolderGetFilesAsyncTester(),
+                    new StorageFolderGetFilesAsyncTester(),*/
+                    new StorageFolderGetFileSyncTester(),
+                    new StorageFileGetFileFromPathSyncTester(),
+                    new StorageFileGetFileFromApplicationUriSyncTester(),
                 };
 
                 await runner.InitFiles(500, 0);
