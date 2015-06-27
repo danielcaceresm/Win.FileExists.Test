@@ -11,7 +11,7 @@ namespace FileIOTest.Test
             try
             {
                 Uri appUri = new Uri("ms-appdata:///local/" + filename);
-                StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(appUri);
+                StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(appUri).AsTask().ConfigureAwait(false);
                 return file != null;
             }
             catch (Exception e)

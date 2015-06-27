@@ -14,7 +14,7 @@ namespace FileIOTest.Test
             try
             {
                 string filePath = Path.Combine(rootPath, filename);
-                StorageFile file = await StorageFile.GetFileFromPathAsync(filePath);
+                StorageFile file = await StorageFile.GetFileFromPathAsync(filePath).AsTask().ConfigureAwait(false);
                 return file != null;
             }
             catch (Exception e)

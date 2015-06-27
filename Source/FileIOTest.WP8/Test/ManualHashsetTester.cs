@@ -17,9 +17,9 @@ namespace FileIOTest.Test
         public static async Task<ManualHashsetTester> Get()
         {
             ManualHashsetTester tester = new ManualHashsetTester();
-            await tester.ss.WaitAsync();
+            await tester.ss.WaitAsync().ConfigureAwait(false);
 
-            IReadOnlyList<StorageFile> files = await tester.root.GetFilesAsync();
+            IReadOnlyList<StorageFile> files = await tester.root.GetFilesAsync().AsTask().ConfigureAwait(false);
             foreach (StorageFile file in files)
             {
                 tester.hashSet.Add(file.Name);
@@ -30,7 +30,7 @@ namespace FileIOTest.Test
 
         public async Task<bool> FileExistsAsync(string filename)
         {
-            await ss.WaitAsync();
+            await ss.WaitAsync().ConfigureAwait(false);
             bool exists = hashSet.Contains(filename);
             ss.Release();
             return exists;

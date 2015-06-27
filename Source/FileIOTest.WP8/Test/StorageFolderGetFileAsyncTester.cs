@@ -12,7 +12,7 @@ namespace FileIOTest.Test
         {
             try
             {
-                StorageFile file = await root.GetFileAsync(filename);
+                StorageFile file = await root.GetFileAsync(filename).AsTask().ConfigureAwait(false);
                 return file != null;
             }
             catch (Exception e)

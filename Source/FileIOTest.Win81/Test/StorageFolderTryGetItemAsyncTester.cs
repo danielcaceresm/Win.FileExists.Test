@@ -10,7 +10,7 @@ namespace FileIOTest.Test
 
         public async Task<bool> FileExistsAsync(string filename)
         {
-            StorageFile file = await root.TryGetItemAsync(filename) as StorageFile;
+            StorageFile file = await root.TryGetItemAsync(filename).AsTask().ConfigureAwait(false) as StorageFile;
             return file != null;
         }
     }

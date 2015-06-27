@@ -12,7 +12,7 @@ namespace FileIOTest.Test
 
         public async Task<bool> FileExistsAsync(string filename)
         {
-            IReadOnlyList<StorageFile> files = await root.GetFilesAsync();
+            IReadOnlyList<StorageFile> files = await root.GetFilesAsync().AsTask().ConfigureAwait(false);
             return files.Any(f => f.Name == filename);
         }
     }
