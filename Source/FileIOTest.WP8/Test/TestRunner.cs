@@ -5,7 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Storage;
+using Windows.UI.Core;
 
 namespace FileIOTest.Test
 {
@@ -27,7 +29,7 @@ namespace FileIOTest.Test
             this.filesToTest = filesToTest;
             this.createRatio = createRatio;
 
-            await AppendLog(string.Format("Initializing test with {0} files, exists ratio {1}", this.filesToTest, this.createRatio));
+            AppendLog(string.Format("Initializing test with {0} files, exists ratio {1}", this.filesToTest, this.createRatio));
             int filesCreated = 0;
             fileMap.Clear();
             StorageFolder root = ApplicationData.Current.LocalFolder;
@@ -35,9 +37,9 @@ namespace FileIOTest.Test
             for (int i = 0; i < this.filesToTest; i++)
             {
                 string fileName = i.ToString();
-                if (filesCreated < (i*this.createRatio))
+                if (filesCreated < (i * this.createRatio))
                 {
-                    await root.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+                    await root.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists).AsTask().ConfigureAwait(false);
                     filesCreated++;
                     fileMap[fileName] = true;
                 }
@@ -55,7 +57,7 @@ namespace FileIOTest.Test
 
         public async Task RunTest(IFileTester[] testers)
         {
-            await AppendLog("Starting test");
+            AppendLog("Starting test");
             foreach (IFileTester tester in testers)
             {
                 Stopwatch sw = new Stopwatch();
@@ -63,24 +65,33 @@ namespace FileIOTest.Test
 
                 foreach (KeyValuePair<string, bool> pair in fileMap)
                 {
-                    bool exists = await tester.FileExistsAsync(pair.Key);
+                    bool exists = await tester.FileExistsAsync(pair.Key).ConfigureAwait(false);
                     if (exists != pair.Value)
                     {
-                        await AppendLog(string.Format("Error in tester {0}", tester.GetType().FullName));
+                        AppendLog(string.Format("Error in tester {0}", tester.GetType().FullName));
                         return;
                     }
                 }
 
                 sw.Stop();
-                await AppendLog(string.Format("{0}: {1:N0} ms", tester.GetType().Name, sw.ElapsedMilliseconds));
+                AppendLog(string.Format("{0}: {1:N0} ms", tester.GetType().Name, sw.ElapsedMilliseconds));
             }
-            await AppendLog(string.Empty);
+            AppendLog(string.Empty);
         }
 
-        private async Task AppendLog(string message)
+        private async void AppendLog(string message)
         {
-            Log = Log + message + Environment.NewLine;
-            await Task.Yield();
+            if (CoreApplication.MainView.CoreWindow.Dispatcher.HasThreadAccess)
+            {
+                Log = Log + message + Environment.NewLine;
+            }
+            else
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    Log = Log + message + Environment.NewLine;
+                });
+            }
         }
 
         #region INotifyPropertyChanged implementation
