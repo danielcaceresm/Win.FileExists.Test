@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
@@ -48,7 +49,7 @@ namespace FileIOTest.Test
                     StorageFile file = files.FirstOrDefault(f => f.Name == i.ToString());
                     if (file != null)
                     {
-                        await file.DeleteAsync();
+                        await file.DeleteAsync().AsTask().ConfigureAwait(false);
                     }
                     fileMap[fileName] = false;
                 }
@@ -79,6 +80,14 @@ namespace FileIOTest.Test
             AppendLog(string.Empty);
         }
 
+#if SILVERLIGHT
+        private void AppendLog(string message)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                Log = Log + message + Environment.NewLine;
+            });
+#else
         private async void AppendLog(string message)
         {
             if (CoreApplication.MainView.CoreWindow.Dispatcher.HasThreadAccess)
@@ -92,6 +101,7 @@ namespace FileIOTest.Test
                     Log = Log + message + Environment.NewLine;
                 });
             }
+#endif
         }
 
         #region INotifyPropertyChanged implementation
@@ -122,6 +132,6 @@ namespace FileIOTest.Test
             }
         }
 
-        #endregion
+#endregion
     }
 }
